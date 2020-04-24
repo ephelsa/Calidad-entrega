@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calidad</title>
+	<link href='./icon.ico' rel="icon" type="image/ico"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body">
+    <script>
+        function verificarTriangulo () {
+            var lado1 = parseInt(document.getElementById("ladoT1").value)
+            var lado2 = parseInt(document.getElementById("ladoT2").value)
+            var lado3 = parseInt(document.getElementById("ladoT3").value)
+            if (isNaN(lado1) || isNaN(lado2) || isNaN(lado3)) {
+                swal("¡Error!", "Por favor ingrese todos los datos.", "error");
+            } else if ((lado1 + lado2 > lado3) && (lado1 + lado3 > lado2) && (lado2 + lado3 > lado1)) {
+                if (lado1 == lado2 && lado2 == lado3) {
+                    swal("!Listo!", "El triangulo es equilatero.", "success");
+                } else if (lado1 == lado2 || lado1 == lado3 || lado2 == lado3) {
+                    swal("!Listo!", "El triangulo es isosceles.", "success");
+                } else {
+                    swal("!Listo!", "El triangulo es escaleno.", "success");
+                }
+            } else {
+                swal("!Atención!", "Estas medidas no corresponden a las de un Triangulo, vuelva a intentarlo.", "warning");
+            }
+        }
+
+        function verificarCuadrado() {
+            var lado1 = parseInt(document.getElementById("ladoC1").value)
+            var lado2 = parseInt(document.getElementById("ladoC2").value)
+            var lado3 = parseInt(document.getElementById("ladoC3").value)
+            var lado4 = parseInt(document.getElementById("ladoC4").value)
+            if (isNaN(lado1) || isNaN(lado2) || isNaN(lado3) || isNaN(lado4)) {
+                swal("¡Error!", "Por favor ingrese todos los datos.", "error");
+            } else if (lado1 == lado2 && lado3 == lado4 && lado1 == lado3) {
+                swal("!Listo!", "La figura es un cuadrado.", "success");
+            } else if ((lado1 == lado2 && lado3 == lado4) || (lado1 == lado3 && lado2 == lado4) || (lado1 == lado4 && lado2 == lado3)) {
+                swal("!Listo!", "La figura es un rectangulo.", "success");
+            } else {
+                swal("!Listo!", "La figura es un trapecio.", "success");
+            }
+        }
+
+        function soloNumeros(e) {
+            key = e.keyCode || e.which;
+            tecla = String.fromCharCode(key);
+            letras = " 1234567890";
+            tecla_especial = false;
+
+            if (letras.indexOf(tecla) == -1) {
+                return false;
+            }
+        }
+
+        function formTriangulo() {
+            document.getElementById("formularioTriangulo").style.display="block"
+            document.getElementById("botonSeleccion").style.display="none"
+        }
+        
+        function formCuadrado() {
+            document.getElementById("formularioCuadrado").style.display="block"
+            document.getElementById("botonSeleccion").style.display="none"
+        }
+
+        function regresar() {
+            document.getElementById("ladoT1").value=""
+            document.getElementById("ladoT2").value=""
+            document.getElementById("ladoT3").value=""
+            document.getElementById("ladoC1").value=""
+            document.getElementById("ladoC2").value=""
+            document.getElementById("ladoC3").value=""
+            document.getElementById("ladoC4").value=""
+            document.getElementById("formularioTriangulo").style.display="none"
+            document.getElementById("formularioCuadrado").style.display="none"
+            document.getElementById("botonSeleccion").style.display="block"
+        }
+    </script>
+
+    <div id="botonSeleccion" class="text-center" style="margin-top: 200px;">
+        <h1>Bienvenido</h1>
+        <button class="btn btn-primary" onclick="formTriangulo()">Evaluar Triangulo</button>
+        <button class="btn btn-primary" onclick="formCuadrado()">Evaluar cuadrilátero</button>
+    </div>
+
+    <div id="formularioTriangulo" style="margin-top: 100px; display: none; text-align: -webkit-center;" onsubmit="verificarTriangulo()">
+        <img src="triangulo.png" alt="Triangulo">
+        <input class="form-control w-auto" type="text" id="ladoT1" onkeypress="return soloNumeros(event)" placeholder="Lado 1">
+        <input class="form-control w-auto mt-1" type="text" id="ladoT2" onkeypress="return soloNumeros(event)" placeholder="Lado 2">
+        <input class="form-control w-auto mt-1" type="text" id="ladoT3" onkeypress="return soloNumeros(event)" placeholder="Lado 3">
+        <button class="btn btn-primary mt-1" onclick="verificarTriangulo()">Evaluar triangulo</button>
+        <button class="btn btn-secondary mt-1" type="reset" onclick="regresar()">Volver</button>
+    </div>
+
+    <div id="formularioCuadrado" style="margin-top: 100px; display: none; text-align: -webkit-center;">
+        <img src="cuadrado.png" alt="Cuadrado">
+        <input class="form-control w-auto" type="text" id="ladoC1" onkeypress="return soloNumeros(event)" placeholder="Lado 1">
+        <input class="form-control w-auto mt-1" type="text" id="ladoC2" onkeypress="return soloNumeros(event)" placeholder="Lado 2">
+        <input class="form-control w-auto mt-1" type="text" id="ladoC3" onkeypress="return soloNumeros(event)" placeholder="Lado 3">
+        <input class="form-control w-auto mt-1" type="text" id="ladoC4" onkeypress="return soloNumeros(event)" placeholder="Lado 4">
+        <button class="btn btn-primary mt-1" class="btn btn-primary" onclick="verificarCuadrado()">Evaluar cuadrilátero</button>
+        <button class="btn btn-secondary mt-1" onclick="regresar()">Volver</button>
+    </div>
+</body>
+</html>
